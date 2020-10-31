@@ -1,7 +1,7 @@
 # Учебный проект «Куплю. Продам» [![Build status][travis-image]][travis-url]
 
 * Студент: [Ирина Зоркова](https://up.htmlacademy.ru/nodejs/3/user/109210).
-* Наставник: `Неизвестно`.
+* Наставник: [Сергей Рожков](https://up.htmlacademy.ru/nodejs/3/user/1069033).
 
 ---
 
