@@ -1,22 +1,23 @@
 'use strict';
 
+const chalk = require(`chalk`);
 const {getRandomInt, shuffle, getPictureFileName, writeFile} = require(`./helpers`);
 const {CATEGORIES, SumRestrict, DEFAULT_COUNT, TITLES, OfferType, SENTENCES, PictureIdRestrict, MAX_ADVERTS_COUNT} = require(`./constants`);
 const {ExitCode} = require(`../../../constants`);
 
 module.exports = {
   name: `--generate`,
-  run(args) {
+  async run(args) {
     const [count] = args;
     const advertsCount = count && count > 0 ? parseInt(count, 10) : DEFAULT_COUNT;
 
     if (advertsCount > MAX_ADVERTS_COUNT) {
-      console.error(`Не больше 1000 объявлений`);
+      console.error(chalk.red(`Не больше 1000 объявлений`));
       process.exit(ExitCode.ERROR);
     }
 
     const content = JSON.stringify(generateOffers(advertsCount));
-    writeFile(content);
+    await writeFile(content);
   }
 };
 
