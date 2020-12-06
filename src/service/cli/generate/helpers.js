@@ -34,3 +34,13 @@ module.exports.writeFile = async (content) => {
     console.error(chalk.red(`Can't write data to file...`));
   }
 };
+
+module.exports.readFile = async (filePath) => {
+  try {
+    const content = await fs.readFile(filePath, `utf8`);
+    return content.split(`\n`);
+  } catch (err) {
+    console.error(chalk.red(err));
+    return [];
+  }
+};
