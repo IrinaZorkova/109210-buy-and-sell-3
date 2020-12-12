@@ -1,9 +1,14 @@
 'use strict';
 
 const chalk = require(`chalk`);
-const {getRandomInt, shuffle, getPictureFileName, writeFile} = require(`./helpers`);
-const {CATEGORIES, SumRestrict, DEFAULT_COUNT, TITLES, OfferType, SENTENCES, PictureIdRestrict, MAX_ADVERTS_COUNT} = require(`./constants`);
+const path = require(`path`);
+const {getRandomInt, shuffle, getPictureFileName, writeFile, readFile} = require(`./helpers`);
+const {SumRestrict, DEFAULT_COUNT, OfferType, PictureIdRestrict, MAX_ADVERTS_COUNT} = require(`./constants`);
 const {ExitCode} = require(`../../../constants`);
+
+const FILE_SENTENCES_PATH = path.resolve(`data/sentences.txt`);
+const FILE_TITLES_PATH = path.resolve(`data/titles.txt`);
+const FILE_CATEGORIES_PATH = path.resolve(`data/categories.txt`);
 
 module.exports = {
   name: `--generate`,
@@ -16,18 +21,22 @@ module.exports = {
       process.exit(ExitCode.ERROR);
     }
 
-    const content = JSON.stringify(generateOffers(advertsCount));
+    const sentences = await readFile(FILE_SENTENCES_PATH);
+    const titles = await readFile(FILE_TITLES_PATH);
+    const categories = await readFile(FILE_CATEGORIES_PATH);
+
+    const content = JSON.stringify(generateOffers(advertsCount, titles, categories, sentences));
     await writeFile(content);
   }
 };
 
-const generateOffers = (count) => (
+const generateOffers = (count, titles, categories, sentences) => (
   Array(count).fill({}).map(() => ({
-    title: TITLES[getRandomInt(0, TITLES.length - 1)],
+    title: titles[getRandomInt(0, titles.length - 1)],
     sum: getRandomInt(SumRestrict.MIN, SumRestrict.MAX),
     picture: getPictureFileName(getRandomInt(PictureIdRestrict.MIN, PictureIdRestrict.MAX)),
     type: Object.values(OfferType)[getRandomInt(0, Object.keys(OfferType).length - 1)],
-    description: shuffle(SENTENCES).slice(0, getRandomInt(1, 5)).join(` `),
-    category: shuffle(CATEGORIES).slice(0, getRandomInt(1, CATEGORIES.length))
+    description: shuffle(sentences).slice(0, getRandomInt(1, 5)).join(` `),
+    category: shuffle(categories).slice(0, getRandomInt(1, categories.length))
   }))
 );
