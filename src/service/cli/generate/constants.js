@@ -1,7 +1,5 @@
 'use strict';
 
-const FILE_NAME = `mocks.json`;
-
 const DEFAULT_COUNT = 1;
 const MAX_ADVERTS_COUNT = 1000;
 
@@ -23,7 +21,6 @@ const PictureIdRestrict = {
 module.exports = {
   SumRestrict,
   OfferType,
-  FILE_NAME,
   DEFAULT_COUNT,
   MAX_ADVERTS_COUNT,
   PictureIdRestrict,

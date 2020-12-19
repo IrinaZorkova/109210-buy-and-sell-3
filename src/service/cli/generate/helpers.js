@@ -2,7 +2,7 @@
 
 const chalk = require(`chalk`);
 const fs = require(`fs`).promises;
-const {FILE_NAME} = require(`./constants`);
+const {MOCK_FILE_NAME} = require(`../../../constants`);
 
 module.exports.getRandomInt = (min, max) => {
   const _min = Math.ceil(min);
@@ -28,7 +28,7 @@ module.exports.getPictureFileName = (id) => {
 
 module.exports.writeFile = async (content) => {
   try {
-    await fs.writeFile(FILE_NAME, content);
+    await fs.writeFile(MOCK_FILE_NAME, content);
     console.log(chalk.green(`Operation success. File created.`));
   } catch (err) {
     console.error(chalk.red(`Can't write data to file...`));
