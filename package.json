@@ -9,6 +9,7 @@
     "lint:fix": "eslint --ext .js --fix src/",
     "start": "node ./src/service/service.js",
     "server": "nodemon ./src/service/service.js --server 3000",
+    "mocks": "node ./src/service/service.js --generate 30",
     "start-front-server": "nodemon ./src/express/index.js"
   },
   "repository": {
